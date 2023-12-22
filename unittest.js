@@ -139,6 +139,9 @@ class UnitTest
             this.test_passed(message);
     }
 
+    /**
+    * Resume the test
+    */
     resume(){
         this.output.outputTestSynthesis("Tests finished. "+this.passed.toString()+" passed and "+this.failed.toString()+" failed.");
     }
