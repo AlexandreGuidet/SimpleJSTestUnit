@@ -145,6 +145,15 @@ export class UnitTest
     }
 
     /**
+     * Realize an equals assertion
+     * @param {*} expected the value excepted
+     * @param {*} value the value obained     
+     */
+    assert_equals(expected, value){
+        this.assert(expected==value,"test equality");
+    }
+
+    /**
     * Resume the test
     */
     resume(){
