@@ -83,14 +83,19 @@ export class HTMLSectionOuput extends TestOuput
  */
 export class UnitTest
 {
+    /* attributes */
+    #output;
+    #passed;
+    #failed;
+
     /**
      * Create the test
      * @param {TestOuput} output object to outputs tests results
      */
     constructor(output){
-        this.output = output;
-        this.passed = 0;
-        this.failed = 0;
+        this.#output = output;
+        this.#passed = 0;
+        this.#failed = 0;
     }
 
     /**
@@ -99,7 +104,7 @@ export class UnitTest
      * @param {function} testFunction function to test
      */
     run_test(name, testFunction){
-        this.output.outputTestName(name);
+        this.#output.outputTestName(name);
         try{
             testFunction();            
         }
@@ -112,20 +117,20 @@ export class UnitTest
      * show in the page that the test passed
      * @param {string} description description of the test
      */
-    test_passed(description){
+    #test_passed(description){
         let str = '✅ ' + description+ " - passed";
-        this.output.outputTestResult(str);     
-        this.passed++;   
+        this.#output.outputTestResult(str);     
+        this.#passed++;   
     }
     
     /**
      * Show in the page that the test failed
      * @param {string} description description of the test     
      */
-    test_failed(description){
+    #test_failed(description){
         let str = '❌ ' + description + " - failed";
-        this.output.outputTestResult(str);        
-        this.failed++;
+        this.#output.outputTestResult(str);        
+        this.#failed++;
     }
     /**
      * Realize a simple assertion
@@ -134,15 +139,15 @@ export class UnitTest
      */
     assert(condition, message){        
         if(!condition)
-            this.test_failed(message);
+            this.#test_failed(message);
         else
-            this.test_passed(message);
+            this.#test_passed(message);
     }
 
     /**
     * Resume the test
     */
     resume(){
-        this.output.outputTestSynthesis("Tests finished. "+this.passed.toString()+" passed and "+this.failed.toString()+" failed.");
+        this.#output.outputTestSynthesis("Tests finished. "+this.#passed.toString()+" passed and "+this.#failed.toString()+" failed.");
     }
 }
