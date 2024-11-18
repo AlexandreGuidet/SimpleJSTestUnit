@@ -1,7 +1,7 @@
 /**
  * base class for test output (kind of interface)
  */
-class TestOuput
+export class TestOuput
 {
     /**
      * outputs the name of the test
@@ -24,7 +24,7 @@ class TestOuput
 /**
  * Outputs results on console
  */
-class ConsoleTestOutput extends TestOuput
+export class ConsoleTestOutput extends TestOuput
 {
     constructor()
     {
@@ -47,7 +47,7 @@ class ConsoleTestOutput extends TestOuput
 /**
  * Outputs results on HTML list
  */
-class HTMLSectionOuput extends TestOuput
+export class HTMLSectionOuput extends TestOuput
 {
     /**
      * Create the outputs
@@ -81,7 +81,7 @@ class HTMLSectionOuput extends TestOuput
 /**
  * Base class for unit tests
  */
-class UnitTest
+export class UnitTest
 {
     /**
      * Create the test
