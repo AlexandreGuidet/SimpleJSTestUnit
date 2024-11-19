@@ -67,4 +67,5 @@ window.onload = ()=>{
     const output = new HTMLSectionOuput(div);
     const test = new TestRatio(output);        
     test.run();
+    test.resume();
 };

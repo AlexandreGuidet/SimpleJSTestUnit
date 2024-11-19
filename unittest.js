@@ -1,7 +1,7 @@
 /**
  * base class for test output (kind of interface)
  */
-export class TestOuput
+class TestOuput
 {
     /**
      * outputs the name of the test

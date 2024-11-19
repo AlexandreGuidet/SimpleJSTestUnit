@@ -1,7 +1,7 @@
 /**
  * base class for test output (kind of interface)
  */
-export class TestOuput
+class TestOuput
 {
     /**
      * outputs the name of the test
@@ -90,7 +90,7 @@ export class UnitTest
 
     /**
      * Create the test
-     * @param {TestOuput} output object to outputs tests results
+     * @param {TestOutput} output object to outputs tests results
      */
     constructor(output){
         this.#output = output;
