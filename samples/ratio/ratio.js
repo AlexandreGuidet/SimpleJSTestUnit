@@ -29,4 +29,12 @@ export class Ratio{
     toString(){
         return this.#numerator.toString()+"/"+this.#denominator.toString();
     }
+
+    /**
+     * 
+     * @returns {number} approximate value of the ratio
+     */
+    toNumber() {
+        return this.#numerator / this.#denominator;
+    }
 }

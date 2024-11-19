@@ -10,13 +10,15 @@ class TestRatio extends UnitTest{
     }
 
     run(){
-        this.run_test("Initialization",this.#testInit.bind(this));        
+        this.run_test("Initialization", this.#testInit.bind(this));
+        this.run_test("Compute to number", this.#testToNumber.bind(this));
     }
 
     #testInit(){
         this.#testInit2values();
         this.#testInit1value();
         this.#testInit0value();
+        this.#testBadInit();
     }
 
     #testInit2values(){
@@ -32,6 +34,15 @@ class TestRatio extends UnitTest{
     #testInit0value(){
         let r = new Ratio();
         this.assert("0/1"==r.toString(),"test init with 0 value");
+    }
+
+    #testBadInit(){
+        this.assert_throws( ()=>{const r = new Ratio(1,0);});
+    }
+
+    #testToNumber() {
+        const r = new Ratio(3, 5);
+        this.assert_equals_approx(0.6, r.toNumber());
     }
 }
 

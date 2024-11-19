@@ -154,6 +154,31 @@ export class UnitTest
     }
 
     /**
+     * Realize an approximative assertion, for equality of floating-point values
+     * @param {number} excepted the value expected
+     * @param {number} value the value obtained
+     * @param {number} precision the precision of equality (if omitted, equal to 10e-7)
+     */
+    assert_equals_approx(excepted, value, precision=1e-7) {
+        let delta = Math.abs(excepted - value);
+        this.assert(delta < precision, "test approximative equality");
+    }
+
+    /**
+     * Test if an exception (any kind) is thrown
+     * @param {function} code_to_test 
+     */
+    assert_throws(code_to_test){
+        try{
+            code_to_test();
+            this.assert(false,"exception not thrown");
+        }
+        catch(except_object){
+            this.assert(true,"exception thrown");
+        }
+    }
+
+    /**
     * Resume the test
     */
     resume(){
