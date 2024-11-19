@@ -84,9 +84,9 @@ export class HTMLSectionOuput extends TestOuput
 export class UnitTest
 {
     /* attributes */
-    #output;
-    #passed;
-    #failed;
+    #output; // {TestOuput} link to output 
+    #passed; // {number} number of tests passed
+    #failed; // {number} number of failed tests
 
     /**
      * Create the test
@@ -108,8 +108,8 @@ export class UnitTest
         try{
             testFunction();            
         }
-        catch(error){
-            // todo quoi faire ?
+        catch (error) {
+            this.#test_failed("Test failed : an error is thrown");
         }        
     }
 
@@ -147,7 +147,7 @@ export class UnitTest
     /**
      * Realize an equals assertion
      * @param {*} expected the value excepted
-     * @param {*} value the value obained     
+     * @param {*} value the value obtained     
      */
     assert_equals(expected, value) {
         if (expected == value) {
@@ -156,6 +156,20 @@ export class UnitTest
         else {
             this.#test_failed("assertion failed, " + expected + " expected but " + value + " obtained.");
         }        
+    }
+
+    /**
+     * Realize an not-equals assertion
+     * @param {*} expected the value excepted
+     * @param {*} value the value obtained     
+     */
+    assert_not_equals(expected, value) {
+        if (expected != value) {
+            this.#test_passed("values are different");
+        }
+        else {
+            this.#test_failed("assertion failed, values are same");
+        } 
     }
 
     /**
@@ -182,9 +196,11 @@ export class UnitTest
             this.assert(true,"exception thrown");
         }
     }
+    
 
     /**
     * Resume the test
+    * @see TestOutput
     */
     resume(){
         this.#output.outputTestSynthesis("Tests finished. "+this.#passed.toString()+" passed and "+this.#failed.toString()+" failed.");
