@@ -60,6 +60,15 @@ export class Ratio{
         return this.#numerator * other.#denominator == this.#denominator * other.#numerator;
     }
 
+    /**
+     * Compare 2 rationals
+     * @param {Ratio} other another rational
+     * @return {boolean} true if this < other
+     */
+    isLessThan(other) {
+        return this.toNumber() < other.toNumber();
+    }
+
     #normalize() {
         if (this.#numerator != 0) {
             let g = Ratio.gcd(this.#numerator, this.#denominator);

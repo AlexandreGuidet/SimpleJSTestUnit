@@ -14,6 +14,7 @@ class TestRatio extends UnitTest{
         this.run_test("Compute to number", this.#testToNumber.bind(this));
         this.run_test("Additions", this.#testsAdd.bind(this));
         this.run_test("Equality", this.#testEquality.bind(this));
+        this.run_test("Inequality", this.#testIsLess.bind(this));
     }
 
     #testInit(){
@@ -82,6 +83,14 @@ class TestRatio extends UnitTest{
         const r2 = new Ratio(11, 11);
         this.assert(!r1.equals(r2), "not equal");
     }
+
+    #testIsLess() {
+        const r1 = new Ratio(2, 3);
+        const r2 = new Ratio(1, 1);
+        this.assert(r1.isLessThan(r2),"2/3 < 1");
+        this.assert(!r2.isLessThan(r1),"1 > 2/3");
+        this.assert(!r1.isLessThan(r1),"< != ==");
+    }    
 }
 
 window.onload = ()=>{
