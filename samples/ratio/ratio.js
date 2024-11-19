@@ -51,6 +51,15 @@ export class Ratio{
         return new Ratio(num, den);
     }
 
+    /**
+     * Compare 2 rationals
+     * @param {Ratio} other another rational
+     * @returns {boolean} true if both rational are equals
+     */
+    equals(other) {
+        return this.#numerator * other.#denominator == this.#denominator * other.#numerator;
+    }
+
     #normalize() {
         if (this.#numerator != 0) {
             let g = Ratio.gcd(this.#numerator, this.#denominator);

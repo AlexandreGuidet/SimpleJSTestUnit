@@ -13,6 +13,7 @@ class TestRatio extends UnitTest{
         this.run_test("Initialization", this.#testInit.bind(this));
         this.run_test("Compute to number", this.#testToNumber.bind(this));
         this.run_test("Additions", this.#testsAdd.bind(this));
+        this.run_test("Equality", this.#testEquality.bind(this));
     }
 
     #testInit(){
@@ -66,6 +67,20 @@ class TestRatio extends UnitTest{
         const r2 = new Ratio(1, 2);
         let r = Ratio.add(r1, r2);
         this.assert_equals("11/10", r.toString());
+    }
+    #testEquality() {
+        this.#testEquals();
+        this.#testNotEquals();
+    }
+    #testEquals() {
+        const r1 = new Ratio(10, 11);
+        const r2 = new Ratio(100, 110);
+        this.assert(r1.equals(r2), "equals");
+    }
+    #testNotEquals() {
+        const r1 = new Ratio(10, 11);
+        const r2 = new Ratio(11, 11);
+        this.assert(!r1.equals(r2), "not equal");
     }
 }
 
