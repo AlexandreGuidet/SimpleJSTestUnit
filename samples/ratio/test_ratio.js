@@ -12,6 +12,7 @@ class TestRatio extends UnitTest{
     run(){
         this.run_test("Initialization", this.#testInit.bind(this));
         this.run_test("Compute to number", this.#testToNumber.bind(this));
+        this.run_test("Additions", this.#testsAdd.bind(this));
     }
 
     #testInit(){
@@ -19,6 +20,7 @@ class TestRatio extends UnitTest{
         this.#testInit1value();
         this.#testInit0value();
         this.#testBadInit();
+        this.#testInitWithNormalize();
     }
 
     #testInit2values(){
@@ -39,10 +41,31 @@ class TestRatio extends UnitTest{
     #testBadInit(){
         this.assert_throws( ()=>{const r = new Ratio(1,0);});
     }
+    #testInitWithNormalize() {
+        let r = new Ratio(10, 12);
+        this.assert_equals("5/6", r.toString());
+    }
 
     #testToNumber() {
         const r = new Ratio(3, 5);
         this.assert_equals_approx(0.6, r.toNumber());
+    }
+
+    #testsAdd() {
+        this.#testAdditionSameDen();
+        this.#testAdditionDiffDen();
+    }
+    #testAdditionSameDen() {
+        const r1 = new Ratio(3, 5);
+        const r2 = new Ratio(4, 5);
+        let r = Ratio.add(r1, r2);
+        this.assert_equals("7/5", r.toString());
+    }
+    #testAdditionDiffDen() {
+        const r1 = new Ratio(3, 5);
+        const r2 = new Ratio(1, 2);
+        let r = Ratio.add(r1, r2);
+        this.assert_equals("11/10", r.toString());
     }
 }
 

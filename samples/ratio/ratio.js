@@ -20,6 +20,7 @@ export class Ratio{
             throw new DivideByZeroError();
         this.#numerator = num;
         this.#denominator = den;
+        this.#normalize();
     }
 
     /**
@@ -36,5 +37,48 @@ export class Ratio{
      */
     toNumber() {
         return this.#numerator / this.#denominator;
+    }
+
+    /**
+     * Add to ratio
+     * @param {Ratio} r1 first rational
+     * @param {Ratio} r2 second rational
+     * @returns {Ratio} r1+r2
+     */
+    static add(r1, r2) {
+        let num = r1.#numerator * r2.#denominator + r2.#numerator * r1.#denominator;
+        let den = r1.#denominator * r2.#denominator;
+        return new Ratio(num, den);
+    }
+
+    #normalize() {
+        if (this.#numerator != 0) {
+            let g = Ratio.gcd(this.#numerator, this.#denominator);
+            this.#numerator /= g;
+            this.#denominator /= g;
+        }
+    }
+
+    /**
+     * Compute GCD of a and b
+     * @param {number} a
+     * @param {number} b
+     * @returns {number} GCD of a and b
+     */
+    static gcd(a, b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        if (a < b) {
+            let temp = a;
+            a = b;
+            b = temp;
+        }
+        let r = a % b;
+        while (r != 0) {
+            a = b;
+            b = r;
+            r = a % b;
+        }
+        return b;
     }
 }

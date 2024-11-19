@@ -149,8 +149,13 @@ export class UnitTest
      * @param {*} expected the value excepted
      * @param {*} value the value obained     
      */
-    assert_equals(expected, value){
-        this.assert(expected==value,"test equality");
+    assert_equals(expected, value) {
+        if (expected == value) {
+            this.#test_passed("equality ok");
+        }
+        else {
+            this.#test_failed("assertion failed, " + expected + " expected but " + value + " obtained.");
+        }        
     }
 
     /**
