@@ -84,9 +84,9 @@ export class HTMLSectionOuput extends TestOuput
 export class UnitTest
 {
     /* attributes */
-    #output;
-    #passed;
-    #failed;
+    #output; // {TestOuput} link to output 
+    #passed; // {number} number of tests passed
+    #failed; // {number} number of failed tests
 
     /**
      * Create the test
@@ -108,8 +108,8 @@ export class UnitTest
         try{
             testFunction();            
         }
-        catch(error){
-            // todo quoi faire ?
+        catch (error) {
+            this.#test_failed("Test failed : an error is thrown");
         }        
     }
 
@@ -147,14 +147,60 @@ export class UnitTest
     /**
      * Realize an equals assertion
      * @param {*} expected the value excepted
-     * @param {*} value the value obained     
+     * @param {*} value the value obtained     
      */
-    assert_equals(expected, value){
-        this.assert(expected==value,"test equality");
+    assert_equals(expected, value) {
+        if (expected == value) {
+            this.#test_passed("equality ok");
+        }
+        else {
+            this.#test_failed("assertion failed, " + expected + " expected but " + value + " obtained.");
+        }        
     }
 
     /**
+     * Realize an not-equals assertion
+     * @param {*} expected the value excepted
+     * @param {*} value the value obtained     
+     */
+    assert_not_equals(expected, value) {
+        if (expected != value) {
+            this.#test_passed("values are different");
+        }
+        else {
+            this.#test_failed("assertion failed, values are same");
+        } 
+    }
+
+    /**
+     * Realize an approximative assertion, for equality of floating-point values
+     * @param {number} excepted the value expected
+     * @param {number} value the value obtained
+     * @param {number} precision the precision of equality (if omitted, equal to 10e-7)
+     */
+    assert_equals_approx(excepted, value, precision=1e-7) {
+        let delta = Math.abs(excepted - value);
+        this.assert(delta < precision, "test approximative equality");
+    }
+
+    /**
+     * Test if an exception (any kind) is thrown
+     * @param {function} code_to_test 
+     */
+    assert_throws(code_to_test){
+        try{
+            code_to_test();
+            this.assert(false,"exception not thrown");
+        }
+        catch(except_object){
+            this.assert(true,"exception thrown");
+        }
+    }
+    
+
+    /**
     * Resume the test
+    * @see TestOutput
     */
     resume(){
         this.#output.outputTestSynthesis("Tests finished. "+this.#passed.toString()+" passed and "+this.#failed.toString()+" failed.");
